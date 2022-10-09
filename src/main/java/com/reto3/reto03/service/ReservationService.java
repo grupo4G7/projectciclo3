@@ -18,9 +18,10 @@ public class ReservationService {
     public List<Reservation> getAll(){
         return reservationRepository.getAll();
     }
-    public Optional<Reservation> getAdmin(int id){
+    public Optional<Reservation> getReservation(int id){
         return reservationRepository.getReservation(id);
     }
+
     public Reservation save(Reservation p){
         if (p.getIdReservation()==null){
             return reservationRepository.save(p);
@@ -52,6 +53,12 @@ public class ReservationService {
                 if (p.getDevolutionDate()!=null){
                     q.get().setDevolutionDate(p.getDevolutionDate());
                 }
+                if (p.getStatus()!=null){
+                    q.get().setStatus(p.getStatus());
+                }
+                if (p.getScore()!=null){
+                    q.get().setScore(p.getScore());
+                }
                 reservationRepository.save(q.get());
                 return q.get();
             }else {
@@ -62,12 +69,10 @@ public class ReservationService {
         }
     }
     public boolean delete(int id){
-        boolean flag=false;
-        Optional<Reservation>p=reservationRepository.getReservation(id);
-        if (p.isPresent()){
-            reservationRepository.delete(p.get());
-            flag=true;
-        }
-        return flag;
+        Boolean success = reservationRepository.getReservation(id).map(reservation -> {
+            reservationRepository.delete(reservation);
+            return true;
+                }).orElse(false);
+        return success;
     }
 }
