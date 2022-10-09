@@ -14,15 +14,23 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReservation;
-    private String computer;
-    private String client;
     private Date startDate;
     private Date devolutionDate;
+    private String status;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId")
-    @JsonIgnoreProperties("reservation")
-    private Category category;
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties({"reservations", "messages"})
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name="computerId")
+    @JsonIgnoreProperties("reservations")
+    private String computer;
+
+    @OneToOne
+    @JsonIgnoreProperties("reservations")
+    private Integer score;
 
     public Integer getIdReservation() {
         return idReservation;
@@ -30,22 +38,6 @@ public class Reservation implements Serializable {
 
     public void setIdReservation(Integer idReservation) {
         this.idReservation = idReservation;
-    }
-
-    public String getComputer() {
-        return computer;
-    }
-
-    public void setComputer(String computer) {
-        this.computer = computer;
-    }
-
-    public String getClient() {
-        return client;
-    }
-
-    public void setClient(String client) {
-        this.client = client;
     }
 
     public Date getStartDate() {
@@ -64,11 +56,35 @@ public class Reservation implements Serializable {
         this.devolutionDate = devolutionDate;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public String getComputer() {
+        return computer;
+    }
+
+    public void setComputer(String computer) {
+        this.computer = computer;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
