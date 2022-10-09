@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Computer")
@@ -19,9 +20,24 @@ public class ComputerController {
     public List<Computer> getAll(){
         return computerService.getAll();
     }
+    @GetMapping("/{id}")
+    public Optional<Computer> getComputer(@PathVariable("id") int id){
+        return computerService.getComputer(id);
+    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Computer save(@RequestBody Computer p){
         return computerService.save(p);
+    }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Computer updateComputer (@RequestBody Computer p){
+        return computerService.update(p);
+    }
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Boolean deleteComputer (@PathVariable("id")int id){
+        return computerService.delete(id);
     }
 }

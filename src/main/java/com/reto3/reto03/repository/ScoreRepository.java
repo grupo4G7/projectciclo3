@@ -24,4 +24,4 @@ public class ScoreRepository {
     }
     public void delete(Score p){scoreCrudRepository.delete(p);
     }
-}}
+}

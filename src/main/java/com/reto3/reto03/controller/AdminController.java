@@ -17,7 +17,7 @@ public class AdminController {
 
     @GetMapping("/all")
     public List<Admin> getAdmins(){
-        return adminService.getAllAdmins();
+        return adminService.getAll();
     }
     @GetMapping("/{id}")
     public Optional<Admin> getAdmin(@PathVariable("id") int adminId) {
@@ -29,7 +29,6 @@ public class AdminController {
     public Admin save(@RequestBody Admin admin) {
 
         return adminService.save(admin);
-
     }
 
     @PutMapping("/update")

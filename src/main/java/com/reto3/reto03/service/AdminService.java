@@ -34,8 +34,11 @@ public class AdminService {
         if (admin.getIdAdmin()!=null) {
             Optional<Admin> q = adminRepository.getAdmin(admin.getIdAdmin());
             if (!q.isEmpty()) {
-                if (admin.getPassword() != null) {
+                if (admin.getPassword() != null && admin.getPassword().length() < 45) {
                     q.get().setPassword(admin.getPassword());
+                }
+                if (admin.getEmail() != null && admin.getEmail().length() < 45){
+                    q.get().setEmail(admin.getEmail());
                 }
                 if (admin.getName() != null) {
                     q.get().setName(admin.getName());
