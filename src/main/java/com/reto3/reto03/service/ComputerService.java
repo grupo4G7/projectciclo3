@@ -21,10 +21,10 @@ public class ComputerService {
         return computerRepository.getComputer(id);
     }
     public Computer save(Computer p){
-        if (p.getIdComputer()==null){
+        if (p.getId()==null){
             return computerRepository.save(p);
         }else {
-            Optional<Computer> e = computerRepository.getComputer(p.getIdComputer());
+            Optional<Computer> e = computerRepository.getComputer(p.getId());
             if (e.isPresent()){
                 return p;
             }else {
@@ -33,22 +33,22 @@ public class ComputerService {
         }
     }
     public Computer update(Computer p){
-        if (p.getIdComputer()!=null) {
-            Optional<Computer> q = computerRepository.getComputer(p.getIdComputer());
+        if (p.getId()!=null) {
+            Optional<Computer> q = computerRepository.getComputer(p.getId());
             if (q.isPresent()) {
-                if (p.getName() != null) {
+                if (p.getName() != null && p.getName().length() <= 45) {
                     q.get().setName(p.getName());
                 }
-                if (p.getDescription() != null) {
+                if (p.getDescription() != null && p.getDescription().length() <= 250) {
                     q.get().setDescription(p.getDescription());
                 }
-                if (p.getBrand() != null) {
+                if (p.getBrand() != null && p.getBrand().length() <= 45) {
                     q.get().setBrand(p.getBrand());
                 }
                 if (p.getCategory() != null) {
                     q.get().setCategory(p.getCategory());
                 }
-                if (p.getYear() != null) {
+                if (p.getYear() != null && p.getYear() >= 1000 && p.getYear() <= 9999) {
                     q.get().setYear(p.getYear());
                 }
                 computerRepository.save((q.get()));
@@ -62,12 +62,10 @@ public class ComputerService {
         }
 
         public boolean delete(int id){
-        boolean flag=false;
-        Optional<Computer>p= computerRepository.getComputer(id);
-        if (p.isPresent()){
-            computerRepository.delete(p.get());
-            flag=true;
-        }
-        return  flag;
+        boolean success = computerRepository.getComputer(id).map(computer -> {
+            computerRepository.delete(computer);
+            return true;
+        }).orElse(false);
+        return success;
         }
     }
