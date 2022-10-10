@@ -1,7 +1,6 @@
 package com.reto3.reto03.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.aspectj.bridge.Message;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,15 +18,16 @@ public class Client implements Serializable {
     private String password;
     private Integer age;
 
-    @OneToMany (cascade = {CascadeType.PERSIST}, mappedBy = "client")
-    @JsonIgnoreProperties("client")
-    public List<Message> messages;
+
 
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
     @JsonIgnoreProperties("client")
     public List<Reservation> reservations;
 
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
+    @JsonIgnoreProperties("client")
+    public List<Message> messages;
 
     public List<Message> getMessages() {
         return messages;
@@ -35,14 +35,6 @@ public class Client implements Serializable {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
     }
 
     public Integer getIdClient() {
@@ -56,6 +48,7 @@ public class Client implements Serializable {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -63,6 +56,7 @@ public class Client implements Serializable {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -70,6 +64,7 @@ public class Client implements Serializable {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -77,7 +72,18 @@ public class Client implements Serializable {
     public Integer getAge() {
         return age;
     }
+
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

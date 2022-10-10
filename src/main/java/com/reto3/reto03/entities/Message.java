@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
+@Entity
 @Table(name = "message")
 public class Message implements Serializable {
     @Id
@@ -23,6 +23,14 @@ public class Message implements Serializable {
     @JsonIgnoreProperties({"messages", "reservations"})
     private Computer computer;
 
+    public Integer getIdMessage() {
+        return idMessage;
+    }
+
+    public void setIdMessage(Integer idMessage) {
+        this.idMessage = idMessage;
+    }
+
     public String getMessageText() {
         return messageText;
     }
@@ -37,14 +45,6 @@ public class Message implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Integer getIdMessage() {
-        return idMessage;
-    }
-
-    public void setIdMessage(Integer idMessage) {
-        this.idMessage = idMessage;
     }
 
     public Computer getComputer() {

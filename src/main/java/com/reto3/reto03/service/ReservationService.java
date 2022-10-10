@@ -18,9 +18,10 @@ public class ReservationService {
     public List<Reservation> getAll(){
         return reservationRepository.getAll();
     }
-    public Optional<Reservation> getAdmin(int id){
+    public Optional<Reservation> getReservation(int id){
         return reservationRepository.getReservation(id);
     }
+
     public Reservation save(Reservation p){
         if (p.getIdReservation()==null){
             return reservationRepository.save(p);

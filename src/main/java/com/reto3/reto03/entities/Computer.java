@@ -13,7 +13,7 @@ public class Computer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idComputer;
     private String brand;
     private Integer year;
     private String name;
@@ -32,13 +32,20 @@ public class Computer implements Serializable {
     @JsonIgnoreProperties({"computer", "client"})
     public List<Reservation> reservations;
 
+    public Integer getIdComputer() {
+        return idComputer;
+    }
+
+    public void setIdComputer(Integer idComputer) {
+        this.idComputer = idComputer;
+    }
 
     public Integer getId() {
-        return id;
+        return idComputer;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.idComputer = id;
     }
 
     public List<Message> getMessages() {
