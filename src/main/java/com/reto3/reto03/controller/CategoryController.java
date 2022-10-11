@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Category")
@@ -20,10 +21,24 @@ public class CategoryController {
     public List<Category> getAll(){
         return categoryservice.getAll();
     }
+
+    @GetMapping("/{id}")
+    public Optional<Category> getCategory(@PathVariable("id") int categoryId) {
+        return categoryservice.getCategory(categoryId);}
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Category save(@RequestBody Category p){
         return categoryservice.save(p);
    }
 
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category update(@RequestBody Category p) {
+        return categoryservice.update(p);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int categoryId) {
+        return categoryservice.delete(categoryId); }
 }

@@ -3,6 +3,7 @@ package com.reto3.reto03.controller;
 import com.reto3.reto03.entities.Score;
 import com.reto3.reto03.service.ScoreServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,5 +23,15 @@ public class ScoreController {
     public Score save(@RequestBody Score p) {
         return scoreServices.save(p);
     }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Score update(@RequestBody Score s) {
+        return scoreServices.update(s);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int scoreId) { return scoreServices.delete(scoreId); }
 
 }
