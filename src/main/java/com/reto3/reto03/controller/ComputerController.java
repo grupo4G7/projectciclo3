@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Computer")
+@CrossOrigin(origins = "*", methods ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
 public class ComputerController {
 
     @Autowired
@@ -35,7 +36,7 @@ public class ComputerController {
     public Computer updateComputer (@RequestBody Computer p){
         return computerService.update(p);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Boolean deleteComputer (@PathVariable("id")int id){
         return computerService.delete(id);

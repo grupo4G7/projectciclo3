@@ -24,12 +24,14 @@ public class ReservationService {
 
     public Reservation save(Reservation p){
         if (p.getIdReservation()==null){
+            p.setStatus("created");
             return reservationRepository.save(p);
         }else {
             Optional<Reservation> e =reservationRepository.getReservation(p.getIdReservation());
             if (e.isPresent()){
                 return p;
             }else {
+                p.setStatus("created");
                 return reservationRepository.save(p);
             }
         }

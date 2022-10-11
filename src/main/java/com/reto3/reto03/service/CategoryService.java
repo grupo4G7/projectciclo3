@@ -19,7 +19,7 @@ public class CategoryService {
         return categoryRepository.getAll();
     }
 
-    public Optional<Category> getAdmin(int id){
+    public Optional<Category> getCategory(int id){
         return categoryRepository.getCategory(id);
     }
     public Category save(Category p){
@@ -40,6 +40,12 @@ public class CategoryService {
             if (q.isPresent()){
                 if (p.getName()!=null){
                     q.get().setName(p.getName());
+                }
+                if (p.getDescription()!=null){
+                    q.get().setDescription(p.getDescription());
+                }
+                if (p.getComputers()!=null){
+                    q.get().setComputers(p.getComputers());
                 }
                 categoryRepository.save(q.get());
                 return q.get();

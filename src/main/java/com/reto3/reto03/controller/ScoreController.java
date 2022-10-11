@@ -1,19 +1,28 @@
 package com.reto3.reto03.controller;
 
 import com.reto3.reto03.entities.Score;
+import com.reto3.reto03.service.ScoreServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@RestController
+@RequestMapping("/api/Score")
+@CrossOrigin(origins = "*", methods ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
 public class ScoreController {
     @Autowired
-    private ScoreService scoreService;
+    private ScoreServices scoreService;
 
-    @GetMapping("/aLL")
+    @GetMapping("/all")
     public List<Score> getAll() {
-        return scoreService.getAll();
+        return scoreService.getScores();
+    }
+    @GetMapping("/{id}")
+    public Optional<Score> getScore(@PathVariable("id") int scoreId) {
+        return scoreService.getScore(scoreId);
     }
 
     @PostMapping("/save")
@@ -22,4 +31,15 @@ public class ScoreController {
         return scoreService.save(p);
     }
 
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Score updateScore(@RequestBody Score score) {
+        return scoreService.update(score);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int scoreId) {
+        return scoreService.delete(scoreId);
+    }
 }

@@ -1,26 +1,26 @@
 package com.reto3.reto03.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+//-----------Creación de tabla Computador-----------
 @Entity
 @Table(name = "computer")
 public class Computer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idComputer;
     private String brand;
     private Integer year;
     private String name;
     private String description;
 
+    //--------Relaciones de llaves foráneas----------
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "Categoryid")
     @JsonIgnoreProperties("computers")
     private Category category;
 
@@ -32,13 +32,13 @@ public class Computer implements Serializable {
     @JsonIgnoreProperties({"computer", "client"})
     public List<Reservation> reservations;
 
-
+//----------Getters y Setters--------------
     public Integer getId() {
-        return id;
+        return idComputer;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.idComputer = id;
     }
 
     public List<Message> getMessages() {

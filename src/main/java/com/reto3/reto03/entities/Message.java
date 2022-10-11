@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
+@Entity
 @Table(name = "message")
 public class Message implements Serializable {
     @Id
@@ -14,12 +14,12 @@ public class Message implements Serializable {
     private String messageText;
 
     @ManyToOne
-    @JoinColumn(name="clientId")
+    @JoinColumn(name="idClient")
     @JsonIgnoreProperties({"messages", "reservations"})
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name="computerId")
+    @JoinColumn(name="id")
     @JsonIgnoreProperties({"messages", "reservations"})
     private Computer computer;
 

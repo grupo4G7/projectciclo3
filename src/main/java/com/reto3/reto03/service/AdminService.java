@@ -30,6 +30,31 @@ public class AdminService {
             }
         }
     }
+    /* //Condicionales para Administradores (probar)
+    public Admin save(Admin admin){
+        if (admin.getIdAdmin()==null){
+
+            Admin q = new Admin();
+
+            q.setName(admin.getName());
+
+            if (admin.getPassword() != null && admin.getPassword().length() < 45) {
+                q.setPassword(admin.getPassword());
+            }
+            if (admin.getEmail() != null && admin.getEmail().length() < 45){
+                q.setEmail(admin.getEmail());
+            }
+            return adminRepository.save(admin);
+        }else {
+            Optional<Admin> admin1 = adminRepository.getAdmin(admin.getIdAdmin());
+            if (admin1.isEmpty()){
+                return  adminRepository.save(admin);
+            }else {
+                return admin;
+            }
+        }
+    }
+     */
     public Admin updateAdmin(Admin admin){
         if (admin.getIdAdmin()!=null) {
             Optional<Admin> q = adminRepository.getAdmin(admin.getIdAdmin());
