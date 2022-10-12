@@ -13,29 +13,17 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
-    private String name;
     private String email;
     private String password;
+    private String name;
     private Integer age;
-
-
-
-
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
-    @JsonIgnoreProperties("client")
-    public List<Reservation> reservations;
-
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
     @JsonIgnoreProperties("client")
     public List<Message> messages;
 
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "client")
+    @JsonIgnoreProperties("client")
+    public List<Reservation> reservations;
 
     public Integer getIdClient() {
         return idClient;
@@ -43,14 +31,6 @@ public class Client implements Serializable {
 
     public void setIdClient(Integer idClient) {
         this.idClient = idClient;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -69,6 +49,14 @@ public class Client implements Serializable {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Integer getAge() {
         return age;
     }
@@ -77,7 +65,13 @@ public class Client implements Serializable {
         this.age = age;
     }
 
+    public List<Message> getMessages() {
+        return messages;
+    }
 
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 
     public List<Reservation> getReservations() {
         return reservations;

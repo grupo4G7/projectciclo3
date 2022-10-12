@@ -56,7 +56,8 @@ public class ComputerService {
             if (p.getDescription() != null && p.getDescription().length() <= 250) {
                 e.setDescription(p.getDescription());
             }
-            if (p.getBrand() != null && p.getBrand().length() <= 45) {
+            if (p.getBrand
+            () != null && p.getBrand().length() <= 45) {
                 e.setBrand(p.getBrand());
             }
             if (p.getYear() != null && p.getYear() >= 1900 && p.getYear() <= 2100) {

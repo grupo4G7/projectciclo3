@@ -20,7 +20,7 @@ public class Category implements Serializable {
     @JsonIgnoreProperties("category")
     private List<Computer> computers;
 
-    public Integer getIdCategory() {
+    public Integer getId() {
         return id;
     }
 
