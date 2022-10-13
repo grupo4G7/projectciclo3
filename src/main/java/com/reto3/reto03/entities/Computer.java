@@ -1,26 +1,26 @@
 package com.reto3.reto03.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+//-----------Creación de tabla Computador-----------
 @Entity
 @Table(name = "computer")
 public class Computer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idComputer;
+    private Integer id;
+    private String name;
     private String brand;
     private Integer year;
-    private String name;
     private String description;
 
+    //--------Relaciones de llaves foráneas----------
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "Categoryid")
     @JsonIgnoreProperties("computers")
     private Category category;
 
@@ -32,28 +32,22 @@ public class Computer implements Serializable {
     @JsonIgnoreProperties({"computer", "client"})
     public List<Reservation> reservations;
 
-    public Integer getIdComputer() {
-        return idComputer;
-    }
-
-    public void setIdComputer(Integer idComputer) {
-        this.idComputer = idComputer;
-    }
+//----------Getters y Setters--------------
 
     public Integer getId() {
-        return idComputer;
+        return id;
     }
 
     public void setId(Integer id) {
-        this.idComputer = id;
+        this.id = id;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public String getName() {
+        return name;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBrand() {
@@ -72,6 +66,14 @@ public class Computer implements Serializable {
         this.year = year;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -80,20 +82,12 @@ public class Computer implements Serializable {
         this.category = category;
     }
 
-    public String getName() {
-        return name;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public List<Reservation> getReservations() {

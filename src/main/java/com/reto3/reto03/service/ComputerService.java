@@ -20,35 +20,92 @@ public class ComputerService {
     public Optional<Computer> getComputer(int id){
         return computerRepository.getComputer(id);
     }
-    public Computer save(Computer p){
-        if (p.getIdComputer()==null){
+
+    /*public Computer save(Computer p){
+        if (p.getId()==null){
             return computerRepository.save(p);
         }else {
-            Optional<Computer> e = computerRepository.getComputer(p.getIdComputer());
+            Optional<Computer> e = computerRepository.getComputer(p.getId());
             if (e.isPresent()){
                 return p;
             }else {
+                if (p.getName() != null && p.getName().length() <= 45) {
+                    e.get().setName(p.getName());
+                }
+                if (p.getDescription() != null && p.getDescription().length() <= 250) {
+                    e.get().setDescription(p.getDescription());
+                }
+                if (p.getBrand() != null && p.getBrand().length() <= 45) {
+                    e.get().setBrand(p.getBrand());
+                }
+                if (p.getYear() != null && p.getYear() >= 1900 && p.getYear() <= 2100) {
+                    e.get().setYear(p.getYear());
+                }
+                return computerRepository.save(p);
+            }
+        }
+    }*/
+
+    //-----------------Computer con condicionales (para ensayar)--------------------
+    public Computer save(Computer p){
+        if (p.getId()==null){
+            Computer e = new Computer();
+            if (p.getName() != null && p.getName().length() <= 45) {
+                e.setName(p.getName());
+            }
+            if (p.getDescription() != null && p.getDescription().length() <= 250) {
+                e.setDescription(p.getDescription());
+            }
+            if (p.getBrand
+            () != null && p.getBrand().length() <= 45) {
+                e.setBrand(p.getBrand());
+            }
+            if (p.getYear() != null && p.getYear() >= 1900 && p.getYear() <= 2100) {
+                e.setYear(p.getYear());
+            }
+            e.setCategory(p.getCategory());
+            e.setMessages(p.getMessages());
+            e.setReservations(p.getReservations());
+            return computerRepository.save(e);
+        }else {
+            Optional<Computer> e = computerRepository.getComputer(p.getId());
+            if (e.isPresent()){
+                return p;
+            }else {
+                if (p.getName() != null && p.getName().length() <= 45) {
+                    e.get().setName(p.getName());
+                }
+                if (p.getDescription() != null && p.getDescription().length() <= 250) {
+                    e.get().setDescription(p.getDescription());
+                }
+                if (p.getBrand() != null && p.getBrand().length() <= 45) {
+                    e.get().setBrand(p.getBrand());
+                }
+                if (p.getYear() != null && p.getYear() >= 1900 && p.getYear() <= 2100) {
+                    e.get().setYear(p.getYear());
+                }
                 return computerRepository.save(p);
             }
         }
     }
+
     public Computer update(Computer p){
-        if (p.getIdComputer()!=null) {
-            Optional<Computer> q = computerRepository.getComputer(p.getIdComputer());
+        if (p.getId()!=null) {
+            Optional<Computer> q = computerRepository.getComputer(p.getId());
             if (q.isPresent()) {
-                if (p.getName() != null) {
+                if (p.getName() != null && p.getName().length() <= 45) {
                     q.get().setName(p.getName());
                 }
-                if (p.getDescription() != null) {
+                if (p.getDescription() != null && p.getDescription().length() <= 250) {
                     q.get().setDescription(p.getDescription());
                 }
-                if (p.getBrand() != null) {
+                if (p.getBrand() != null && p.getBrand().length() <= 45) {
                     q.get().setBrand(p.getBrand());
                 }
                 if (p.getCategory() != null) {
                     q.get().setCategory(p.getCategory());
                 }
-                if (p.getYear() != null) {
+                if (p.getYear() != null && p.getYear() >= 1900 && p.getYear() <= 2100) {
                     q.get().setYear(p.getYear());
                 }
                 computerRepository.save((q.get()));
@@ -62,12 +119,10 @@ public class ComputerService {
         }
 
         public boolean delete(int id){
-        boolean flag=false;
-        Optional<Computer>p= computerRepository.getComputer(id);
-        if (p.isPresent()){
-            computerRepository.delete(p.get());
-            flag=true;
-        }
-        return  flag;
+        boolean success = computerRepository.getComputer(id).map(computer -> {
+            computerRepository.delete(computer);
+            return true;
+        }).orElse(false);
+        return success;
         }
     }

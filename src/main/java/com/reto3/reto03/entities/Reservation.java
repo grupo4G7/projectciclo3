@@ -19,14 +19,15 @@ public class Reservation implements Serializable {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "clientId")
+    @JoinColumn(name="id")
+    @JsonIgnoreProperties("reservations")
+    private Computer computer;
+
+    @ManyToOne
+    @JoinColumn(name = "idClient")
     @JsonIgnoreProperties({"reservations", "messages"})
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name="computerId")
-    @JsonIgnoreProperties("reservations")
-    private Computer computer;
 
     @OneToOne
     @JsonIgnoreProperties("reservations")
@@ -64,20 +65,20 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public Computer getComputer() {
         return computer;
     }
 
     public void setComputer(Computer computer) {
         this.computer = computer;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Score getScore() {

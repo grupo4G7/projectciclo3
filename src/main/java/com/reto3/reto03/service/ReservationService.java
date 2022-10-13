@@ -24,12 +24,14 @@ public class ReservationService {
 
     public Reservation save(Reservation p){
         if (p.getIdReservation()==null){
+            p.setStatus("created");
             return reservationRepository.save(p);
         }else {
             Optional<Reservation> e =reservationRepository.getReservation(p.getIdReservation());
             if (e.isPresent()){
                 return p;
             }else {
+                p.setStatus("created");
                 return reservationRepository.save(p);
             }
         }
@@ -53,6 +55,12 @@ public class ReservationService {
                 if (p.getDevolutionDate()!=null){
                     q.get().setDevolutionDate(p.getDevolutionDate());
                 }
+                if (p.getStatus()!=null){
+                    q.get().setStatus(p.getStatus());
+                }
+                if (p.getScore()!=null){
+                    q.get().setScore(p.getScore());
+                }
                 reservationRepository.save(q.get());
                 return q.get();
             }else {
@@ -63,12 +71,10 @@ public class ReservationService {
         }
     }
     public boolean delete(int id){
-        boolean flag=false;
-        Optional<Reservation>p=reservationRepository.getReservation(id);
-        if (p.isPresent()){
-            reservationRepository.delete(p.get());
-            flag=true;
-        }
-        return flag;
+        Boolean success = reservationRepository.getReservation(id).map(reservation -> {
+            reservationRepository.delete(reservation);
+            return true;
+                }).orElse(false);
+        return success;
     }
 }
