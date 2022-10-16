@@ -5,6 +5,7 @@ import com.reto3.reto03.repository.crudRepository.ReservationCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,4 +26,17 @@ public class ReservationRepository {
     public void delete(Reservation p){
         reservationCrudRepository.delete(p);
     }
+
+    public List<Reservation> getDatesReport(Date inicio, Date fin){
+        return reservationCrudRepository.findAllByStartDateAfterAndStartDateBefore(inicio, fin);
+    }
+    public List<Reservation> getStatusReport(String status){
+        return reservationCrudRepository.findAllByStatus(status);
+    }
+    
+    public List<Object[]> getTopClients(){
+        return reservationCrudRepository.getTopClients();
+    }
+
+
 }
